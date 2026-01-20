@@ -30,7 +30,7 @@ This website will be a more comprehensive, multi-level dive planner than is curr
 
 ### Key features
 
-- No decompression limit (NDL) calculator
+- No decompression limit (ND L) calculator
 - Multi-level Dive Planning
 - Dive log
 
@@ -49,7 +49,7 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **Server deployed and accessible with custom domain name** - [My server link](https://https://mydiveplanner.click/).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://mydiveplanner.click).
 
 ## 🚀 HTML deliverable
 
