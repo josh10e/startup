@@ -55,15 +55,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - Created the following HTML pages: index, divelog, diveplanner
+- [x] **Proper HTML element usage** - I properly used HTML elements.
+- [x] **Links** - Each page has links to the other pages.
+- [x] **Text** - There is text on each page describing what will be going there in the future.
+- [x] **3rd party API placeholder** - I put in a results section that will pull data from a third party dive table website.
+- [x] **Images** - I put in a cool picture that actually shows up.
+- [x] **Login placeholder** - I made the boxes for login information but there is no backbone yet.
+- [x] **DB data placeholder** - There is a section where dives will be logged and stored in a database for retrieval later.
+- [x] **WebSocket placeholder** - There is a place for websocket in the diveplanner page but nothing there to back it up.
 
 ## 🚀 CSS deliverable
 
