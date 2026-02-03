@@ -73,8 +73,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Use of a CSS framework** - I created rules.css to easily change the basic framing of each page simultaneously.
 - [x] **All visual elements styled using CSS** - All visual elements I created were only using CSS.
 - [x] **Responsive to window resizing using flexbox and/or grid display** - Pictures, titles, sidebars all react to window resizing.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable yet.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable yet.
+- [x] **Use of a imported font** - I imported Roboto to my website.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - See my rules.css file, I included all the things.
 
 ## 🚀 React part 1: Routing deliverable
 
