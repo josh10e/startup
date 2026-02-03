@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dive Planner | Dive Planner</title>
-</head>
 <!--CSS section-->
   <meta charset="UTF-8" />
   <title>Dive Planner | Dive Planner</title>
@@ -17,7 +14,7 @@
 
       header {
         flex: 0 0 80px;
-        background: hsl(223, 57%, 38%);
+        background: aquamarine;
       }
 
       footer {
@@ -30,84 +27,149 @@
       display: flex;
       flex-direction: row;
       }
-  </style>
-<body>
 
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+ 
+    @media(orientation: portrait) {
+      main {
+        flex-direction: column;
+      }
+    }
+
+    @media(max-height: 1000px) {
+      header {
+        display: none;
+      }
+
+      footer {
+        display: none;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: hsl(210, 20%, 95%);
+    }
+
+    main {
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    section {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .sidebar {
+      flex: 0 0 140px;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 0.5rem 0;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
   <header>
     <h1>Dive Planner</h1>
-    <p>Plan and log your dives</p>
   </header>
 
-  <nav>
-    <a href="index.html">Home</a> |
-    <a href="diveplanner.html">Plan a Dive</a> |
-    <a href="divelog.html">Log a Dive</a>
-  </nav>
-
   <main>
-    <h2>Plan a Dive</h2>
-
-    <p>
-      This is where divers can plan their dives
-    </p>
-
-    <form>
-
-      <section>
-        <h3>Breathing Gas</h3>
-
-        <input type="radio" id="air" name="gas" value="air" checked />
-        <label for="air">Air (21% O₂)</label><br />
-
-        <input type="radio" id="nitrox" name="gas" value="nitrox" />
-        <label for="nitrox">Nitrox</label><br /><br />
-
-        <label for="o2percent">Oxygen Percentage (Nitrox only):</label><br />
-        <input type="number" id="o2percent" name="o2percent" placeholder="e.g. 32" />
-      </section>
-
-      <section>
-        <h3>Dive Environment</h3>
-
-        <label for="depth">Planned Depth (feet because Merica):</label><br />
-        <input type="number" id="depth" name="depth" placeholder="e.g. 30" /><br /><br />
-
-        <label for="water">Water Type:</label><br />
-        <select id="water" name="water">
-          <option value="salt">Salt Water</option>
-          <option value="fresh">Fresh Water</option>
-        </select>
-      </section>
-
-      <section>
-        <button type="submit">Dive</button>
-      </section>
-
+    <nav class="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="diveplanner.html">Plan a Dive</a></li>
+        <li><a href="divelog.html">Log a Dive</a></li>
+      </ul>
+    </nav>
+    <section class="content">
+      <h2>Dive Planner</h2>
+      <form>
         <section>
-        <h3>Calculated Values</h3>
+          <h3>Breathing Gas</h3>
 
-        <p>
-            The following values will be calculated based on the selected dive parameters.
-        </p>
+          <input type="radio" id="air" name="gas" value="air" checked />
+          <label for="air">Air (21% O₂)</label><br />
 
-        <ul>
-            <li>No-Decompression Limit (NDL): <strong>-- minutes</strong></li>
-            <li>Partial Pressure of Oxygen (PPO₂): <strong>-- atm</strong></li>
-            <li>Pressure Group: <strong>--</strong></li>
-        </ul>
+          <input type="radio" id="nitrox" name="gas" value="nitrox" />
+          <label for="nitrox">Nitrox</label><br /><br />
 
-        <p>
-            Results will show up here and will updated live.
-        </p>
+          <label for="o2percent">Oxygen Percentage (Nitrox only):</label><br />
+          <input type="number" id="o2percent" name="o2percent" placeholder="e.g. 32" />
         </section>
 
         <section>
-        <h3>Cool picture</h3>
-        <img src="scuba1.jpg" alt="Scuba diving reference image" width="400" />
+          <h3>Dive Environment</h3>
+
+          <label for="depth">Planned Depth (feet because Merica):</label><br />
+          <input type="number" id="depth" name="depth" placeholder="e.g. 30" /><br /><br />
+
+          <label for="water">Water Type:</label><br />
+          <select id="water" name="water">
+            <option value="salt">Salt Water</option>
+            <option value="fresh">Fresh Water</option>
+          </select>
         </section>
 
-    </form>
+        <section>
+          <button type="submit">Dive</button>
+        </section>
+
+          <section>
+          <h3>Calculated Values</h3>
+
+          <p>
+              The following values will be calculated based on the selected dive parameters.
+          </p>
+
+          <ul>
+              <li>No-Decompression Limit (NDL): <strong>-- minutes</strong></li>
+              <li>Partial Pressure of Oxygen (PPO₂): <strong>-- atm</strong></li>
+              <li>Pressure Group: <strong>--</strong></li>
+          </ul>
+
+          <p>
+              Results will show up here and will updated live.
+          </p>
+          </section>
+
+          <section>
+          <h3>Cool picture</h3>
+          <img src="scuba1.jpg" alt="Scuba diving reference image" />
+          </section>
+
+      </form>
+    </section>
   </main>
-
 </body>
 </html>
