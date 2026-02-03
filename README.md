@@ -69,12 +69,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - Changed the title background color to match ocean colors more closely. Also added a sidebar with a darker gray to split up the page more.
+- [x] **Use of a CSS framework** - I created rules.css to easily change the basic framing of each page simultaneously.
+- [x] **All visual elements styled using CSS** - All visual elements I created were only using CSS.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - Pictures, titles, sidebars all react to window resizing.
+- [ ] **Use of a imported font** - I did not complete this part of the deliverable yet.
+- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable yet.
 
 ## 🚀 React part 1: Routing deliverable
 
