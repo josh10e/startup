@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-import { Home } from './home/home';
+import { Home } from './login/login';
 import { DivePlanner } from './diveplanner/diveplanner';
 import { DiveLog } from './divelog/divelog';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
