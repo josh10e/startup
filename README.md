@@ -1,4 +1,4 @@
-# Your startup name here
+# Dive Planner
 
 [My Notes](notes.md)
 
