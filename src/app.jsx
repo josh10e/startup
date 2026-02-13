@@ -38,6 +38,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/diveplanner" element={<DivePlanner />} />
             <Route path="/divelog" element={<DiveLog />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </main>
       </div>
