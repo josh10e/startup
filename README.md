@@ -80,9 +80,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - I bundled everything using Vite.
+- [x] **Components** - I created app.jsx to create a uniform layout with the header, footer, and sidebar. I also created login.jsx, diveplanner.jsx, and divelog.jsx to maintain the same usage that I had before with the individual html pages. I also added a NotFound component in app.jsx to render a 404 page.
+- [x] **Router** - I implemented a router in app.jsx using browserrouter and NavLink. This replaces reloading different html pages with adapting the same page with different use cases.
 
 ## 🚀 React part 2: Reactivity deliverable
 
