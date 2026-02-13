@@ -12,40 +12,43 @@ export default function App() {
     <BrowserRouter>
       <div className="app-body">
         <header>
-          <h1>Dive Planner</h1>
+            <h1 className="header">Dive Planner</h1>
         </header>
 
-        <nav className="sidebar">
-          <h2>Pages</h2>
-          <ul>
-            <li>
-              <NavLink className="nav-link" to="/">Login</NavLink>
-            </li>
-            <li>
-              <NavLink className="nav-link" to="/diveplanner">Plan a Dive</NavLink>
-            </li>
-            <li>
-              <NavLink className="nav-link" to="/divelog">Log a Dive</NavLink>
-            </li>
-            <li>
-              <a className="nav-link" href="https://github.com/josh10e/startup">Startup Repository</a>
-            </li>
-          </ul>
-        </nav>
+        <div className="main-container">
+          <nav className="sidebar">
+            <h2>Pages</h2>
+            <ul>
+              <li><NavLink className="nav-link" to="/">Login</NavLink></li>
+              <li><NavLink className="nav-link" to="/diveplanner">Plan a Dive</NavLink></li>
+              <li><NavLink className="nav-link" to="/divelog">Log a Dive</NavLink></li>
+              <li><a className="nav-link" href="https://github.com/josh10e/startup" target="_blank">Startup Repository</a></li>
+            </ul>
+          </nav>
 
-        <main>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/diveplanner" element={<DivePlanner />} />
-            <Route path="/divelog" element={<DiveLog />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </main>
+          <main className="content">
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/diveplanner" element={<DivePlanner />} />
+              <Route path="/divelog" element={<DiveLog />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
+
+        <footer>
+          Dive Planner
+        </footer>
       </div>
     </BrowserRouter>
   );
 }
 
 function NotFound() {
-  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  return (
+    <section className="content">
+      <h2>404: Page not found</h2>
+      <p>Return to sender. Address unknown.</p>
+    </section>
+  );
 }
