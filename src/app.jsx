@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-import { Home } from './login/login';
+import { Login } from './login/login';
 import { DivePlanner } from './diveplanner/diveplanner';
 import { DiveLog } from './divelog/divelog';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
@@ -19,7 +19,7 @@ export default function App() {
           <h2>Pages</h2>
           <ul>
             <li>
-              <NavLink className="nav-link" to="/">Home</NavLink>
+              <NavLink className="nav-link" to="/">Login</NavLink>
             </li>
             <li>
               <NavLink className="nav-link" to="/diveplanner">Plan a Dive</NavLink>
@@ -35,7 +35,7 @@ export default function App() {
 
         <main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Login />} />
             <Route path="/diveplanner" element={<DivePlanner />} />
             <Route path="/divelog" element={<DiveLog />} />
             <Route path='*' element={<NotFound />} />
@@ -48,4 +48,4 @@ export default function App() {
 
 function NotFound() {
   return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
-}s
+}

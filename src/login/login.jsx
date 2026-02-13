@@ -3,16 +3,6 @@ import React from 'react';
 export function Login() {
   return (
     <main>
-    <nav className="sidebar">
-        <h2>Pages</h2>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/diveplanner">Plan a Dive</a></li>
-          <li><a href="/divelog">Log a Dive</a></li>
-          <li><a href="https://github.com/josh10e/startup">Startup Repository</a></li>
-        </ul>
-      </nav>
-
       <section className="content">
         <h2>Login</h2>
         <form>
