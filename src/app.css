@@ -4,6 +4,104 @@
   box-sizing: border-box;
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: hsl(210, 20%, 95%);
+}
+
+/* ---------------- Layout ---------------- */
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  padding-top: 80px;
+  padding-bottom: 30px;
+}
+
+.sidebar {
+  flex: 0 0 140px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* ---------------- Header & Footer ---------------- */
+header {
+  flex: 0 0 80px;
+  background: aquamarine;
+  display: flex;
+  flex-direction: column;   /* stack title + username */
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  gap: 5px;                 /* spacing between title & username */
+}
+
+header .header-title {
+  color: rgb(13, 154, 197);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.user-display {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+footer {
+  flex: 0 0 30px;
+  background: hsl(180, 10%, 10%);
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 0.5rem 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: black;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- Dive Planner ---------------- */
 .dive-templates-container {
   display: flex;
   flex-wrap: wrap;
@@ -34,7 +132,7 @@
   margin-bottom: 15px;
 }
 
-.dive-btn{
+.dive-btn {
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -61,92 +159,7 @@
   padding-left: 0;
 }
 
-.app-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  background-color: hsl(210, 20%, 95%);
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  min-height: 100vh;
-}
-header {
-  flex: 0 0 80px;
-  background: aquamarine;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-}
-
-header .header-title {
-  color: rgb(13, 154, 197);
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  text-align: center;
-}
-
-footer {
-  flex: 0 0 30px;
-  background: hsl(180, 10%, 10%);
-  color: white;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.main-container {
-  display: flex;
-  flex: 1;
-  gap: 1rem;
-  padding: 1rem;
-  padding-top: 80px;
-  padding-bottom: 30px;
-}
-
-.sidebar {
-  flex: 0 0 140px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  margin: 0.5rem 0;
-}
-
-.sidebar a {
-  text-decoration: none;
-  color: black;
-}
-
-.sidebar a:hover {
-  text-decoration: underline;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-section {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
+/* ---------------- Forms & Images ---------------- */
 .form-group {
   margin-bottom: 1rem;
 }
@@ -170,6 +183,12 @@ img {
   font-weight: 700;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------------- Responsive ---------------- */
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
