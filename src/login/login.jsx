@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../app.css';
 
-export function Login() {
+export function Login({ setIsLoggedIn}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  function Login(event) {
     event.preventDefault();
 
     localStorage.setItem("isLoggedIn", "true");
@@ -16,11 +16,20 @@ export function Login() {
     navigate("/divelog");
   }
 
+  function Logout() {
+    localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("username");
+
+    setIsLoggedIn(false);
+    navigate("/");
+  }
+
   return (
     <main>
       <section className="content">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={Login}>
           <label htmlFor="username">Username:</label><br />
           <input 
             type="text" 
@@ -39,7 +48,9 @@ export function Login() {
             onChange={(e) => setPassword(e.target.value)}
           /><br /><br />
 
-          <button type="submit">Login</button>
+          <button type="submit" onClick={Login}>Login</button>
+          <button type="button" onClick={Logout}>Logout</button>
+          
         </form>
       </section>
   </main>
