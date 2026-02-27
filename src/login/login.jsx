@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../app.css';
 
 export function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("username", username);
+
+    navigate("/divelog");
+  }
+
   return (
     <main>
       <section className="content">
         <h2>Login</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label><br />
-          <input type="text" id="username" name="username" /><br /><br />
+          <input 
+            type="text" 
+            id="username" 
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          /><br /><br />
 
           <label htmlFor="password">Password:</label><br />
-          <input type="password" id="password" name="password" /><br /><br />
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /><br /><br />
 
           <button type="submit">Login</button>
         </form>

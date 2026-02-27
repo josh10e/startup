@@ -4,7 +4,7 @@ import '../app.css';
 export function DivePlanner() {
   return (
     <main>
-    <section class="content">
+    <section className="content">
       <h2 class="page-title">Dive Planner</h2>
       <form>
           <section class="inputs">

@@ -4,10 +4,10 @@ import '../app.css';
 export function DiveLog() {
   return (
     <main>
-    <section class="content">
-    <h2 class="page-title">Dive Log</h2>
+    <section className="content">
+    <h2 className="page-title">Dive Log</h2>
 
-    <p class="highlight">
+    <p className="highlight">
       This is where previous dives logged by the user will show up
     </p>
 
