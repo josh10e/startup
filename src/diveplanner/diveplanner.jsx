@@ -5,9 +5,9 @@ export function DivePlanner() {
   const [gas, setGas] = useState("air");
   const [o2, setO2] = useState(32);       // Oxygen percentage
   const [depth, setDepth] = useState(0);  // Planned depth in feet
-  const fractionO2 = o2 / 100;
+  const fractionO2 = gas === "air" ? 0.21 : o2 / 100;
   const ambientPressure = 1 + depth / 33;
-  const ppo2 = (gas === "air" ? 0.21 : fractionO2 * ambientPressure).toFixed(2);
+  const ppo2 = (fractionO2 * ambientPressure).toFixed(2);
 
   const handleO2Change = (value) => {
     const clamped = Math.max(21, Math.min(40, Number(value)));
