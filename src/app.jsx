@@ -12,15 +12,9 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
 
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setIsLoggedIn(loggedIn);
-  }, []);
-
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("username");
-
   setIsLoggedIn(false);
   setUsername("");
 }

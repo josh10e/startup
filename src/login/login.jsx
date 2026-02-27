@@ -8,15 +8,15 @@ export function Login({ setIsLoggedIn, setUsername }) {
   const navigate = useNavigate();
 
   function handleSubmit(event) {
-  event.preventDefault();
+    if (!usernameInput) return;
+    event.preventDefault();
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("username", usernameInput);
 
-  localStorage.setItem("isLoggedIn", "true");
-  localStorage.setItem("username", usernameInput);
+    setIsLoggedIn(true);
+    setUsername(usernameInput);
 
-  setIsLoggedIn(true);
-  setUsername(usernameInput);
-
-  navigate("/divelog");}
+    navigate("/divelog");}
 
   return (
     <main>
