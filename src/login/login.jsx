@@ -2,41 +2,35 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../app.css';
 
-export function Login({ setIsLoggedIn}) {
-  const [username, setUsername] = useState("");
+export function Login({ setIsLoggedIn, setUsername }) {
+  const [usernameInput, setUsernameInput] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function Login(event) {
-    event.preventDefault();
+  function handleSubmit(event) {
+  event.preventDefault();
 
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("username", username);
+  localStorage.setItem("isLoggedIn", "true");
+  localStorage.setItem("username", usernameInput);
 
-    navigate("/divelog");
-  }
+  setIsLoggedIn(true);
+  setUsername(usernameInput);
 
-  function Logout() {
-    localStorage.setItem("isLoggedIn", "false");
-    localStorage.removeItem("username");
-
-    setIsLoggedIn(false);
-    navigate("/");
-  }
+  navigate("/divelog");}
 
   return (
     <main>
       <section className="content">
         <h2>Login</h2>
 
-        <form onSubmit={Login}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label><br />
           <input 
             type="text" 
             id="username" 
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={usernameInput}
+            onChange={(e) => setUsernameInput(e.target.value)}
           /><br /><br />
 
           <label htmlFor="password">Password:</label><br />
@@ -48,8 +42,7 @@ export function Login({ setIsLoggedIn}) {
             onChange={(e) => setPassword(e.target.value)}
           /><br /><br />
 
-          <button type="submit" onClick={Login}>Login</button>
-          <button type="button" onClick={Logout}>Logout</button>
+          <button type="submit">Login</button>
           
         </form>
       </section>
