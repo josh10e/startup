@@ -1,49 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../app.css';
 
 export function DivePlanner() {
+  const [gas, setGas] = useState("air");    // track selected gas
+  const [o2, setO2] = useState(32);        // track O2 percentage
+
   return (
     <main>
-    <section className="content">
-      <h2 class="page-title">Dive Planner</h2>
-      <form>
-          <section class="inputs">
+      <section className="content">
+        <h2 className="page-title">Dive Planner</h2>
+        <form>
+          <section className="inputs">
             <h3>Inputs</h3>
 
-            <div class="form-group">
-              <label for="gas">Gas Mix:</label><br />
-              <select id="gas" name="gas">
+            <div className="form-group">
+              <label htmlFor="gas">Gas Mix:</label><br />
+              <select
+                id="gas"
+                name="gas"
+                value={gas}
+                onChange={(e) => setGas(e.target.value)}
+              >
                 <option value="air">Air (21% O₂)</option>
                 <option value="nitrox">Nitrox</option>
               </select>
             </div>
 
-            <div class="form-group nitrox-only">
-              <label for="o2slider">Oxygen Percentage:</label><br />
-              <input
-                type="range"
-                id="o2slider"
-                min="21"
-                max="40"
-                value="32"
-                oninput="o2value.value = this.value"
-              />
-              <input
-                type="number"
-                id="o2value"
-                min="21"
-                max="40"
-                value="32"
-              /> %
-            </div>
+            {gas === "nitrox" && (
+              <div className="form-group nitrox-only">
+                <label htmlFor="o2slider">Oxygen Percentage:</label><br />
+                <input
+                  type="range"
+                  id="o2slider"
+                  min="21"
+                  max="40"
+                  value={o2}
+                  onChange={(e) => setO2(Number(e.target.value))}
+                />
+                <input
+                  type="number"
+                  id="o2value"
+                  min="21"
+                  max="40"
+                  value={o2}
+                  onChange={(e) => setO2(Number(e.target.value))}
+                /> %
+              </div>
+            )}
 
-            <div class="form-group">
-              <label for="depth">Planned Depth (ft):</label><br />
+            <div className="form-group">
+              <label htmlFor="depth">Planned Depth (ft):</label><br />
               <input type="number" id="depth"/>
             </div>
 
-            <div class="form-group">
-              <label for="water">Water Type:</label><br />
+            <div className="form-group">
+              <label htmlFor="water">Water Type:</label><br />
               <select id="water">
                 <option value="salt">Salt</option>
                 <option value="fresh">Fresh</option>
@@ -51,7 +62,7 @@ export function DivePlanner() {
             </div>
           </section>
 
-          <section class="outputs">
+          <section className="outputs">
             <h3>Outputs</h3>
             <ul>
               <li>NDL: <strong>-- min</strong></li>
@@ -60,8 +71,8 @@ export function DivePlanner() {
             </ul>
           </section>
 
-      </form>
-    </section>
-  </main>
+        </form>
+      </section>
+    </main>
   );
 }

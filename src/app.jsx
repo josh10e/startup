@@ -23,7 +23,7 @@ function handleLogout() {
     <BrowserRouter>
       <div className="app-body">
         <header>
-          <h1 className="header">Dive Planner</h1>
+          <h1 className="header">Scuba Buddy</h1>
           {isLoggedIn && (<p className="user-display">Welcome, {username}</p>)}
         </header>
 
