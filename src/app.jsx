@@ -6,6 +6,7 @@ import './app.css';
 import { Login } from './login/login';
 import { DivePlanner } from './diveplanner/diveplanner';
 import { DiveLog } from './divelog/divelog';
+import { NewDive } from './divelog/newdive';
 import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
 
 export default function App() {
@@ -43,14 +44,14 @@ function handleLogout() {
 
               {isLoggedIn && (
                 <li>
-                  <NavLink className="nav-link" to="/divelog">Log a Dive</NavLink>
+                  <NavLink className="nav-link" to="/divelog">Logbook</NavLink>
                 </li>
               )}
 
               {isLoggedIn && (
-                <li style={{ marginTop: "15px" }}> {/* space below the links */}
+                <li style={{ marginTop: "15px" }}>
                   <button 
-                    className="login-button"  // same class as your login button
+                    className="login-button"
                     onClick={handleLogout}
                   >
                     Logout
@@ -86,7 +87,21 @@ function handleLogout() {
               />
 
               <Route path="*" element={<NotFound />} />
+              <Route
+                path="/"
+                element={
+                  isLoggedIn
+                    ? <Navigate to="/divelog" replace />
+                    : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
+                }
+              />
+              <Route path="/diveplanner" element={<DivePlanner />} />
+              <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />
+              
+              {/* New Dive page */}
+              <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
 
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
         </div>
