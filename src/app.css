@@ -4,6 +4,63 @@
   box-sizing: border-box;
 }
 
+.dive-templates-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dive-template {
+  flex: 1 1 220px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.gas-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nitrox-slider {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.dive-selector, .water-selector {
+  margin-bottom: 15px;
+}
+
+.dive-btn{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.water-btn {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.dive-btn.active, .water-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.dive-outputs {
+  margin-top: 10px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .app-body {
   font-family: 'Roboto', Arial, sans-serif;
   background-color: hsl(210, 20%, 95%);
