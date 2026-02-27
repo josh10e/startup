@@ -48,22 +48,16 @@ function handleLogout() {
               )}
 
               {isLoggedIn && (
-                <li>
-                  <button className="nav-link logout-btn" onClick={handleLogout}>
+                <li style={{ marginTop: "15px" }}> {/* space below the links */}
+                  <button 
+                    className="login-button"  // same class as your login button
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </li>
               )}
 
-              <li>
-                <a 
-                  className="nav-link" 
-                  href="https://github.com/josh10e/startup" 
-                  target="_blank"
-                >
-                  Startup Repository
-                </a>
-              </li>
             </ul>
           </nav>
 
@@ -98,7 +92,15 @@ function handleLogout() {
         </div>
 
         <footer>
-          Dive Planner
+          <li>
+                <a 
+                  className="nav-link" 
+                  href="https://github.com/josh10e/startup" 
+                  target="_blank"
+                >
+                  Startup Repository
+                </a>
+              </li>
         </footer>
       </div>
     </BrowserRouter>
