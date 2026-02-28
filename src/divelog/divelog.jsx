@@ -38,7 +38,8 @@ export function DiveLog() {
                   className="trip-toggle-btn"
                   onClick={() => toggleTrip(trip)}
                 >
-                  {trip} {expandedTrips[trip] ? "▲" : "▼"}
+                  <span>{trip}</span>
+                  <span>{expandedTrips[trip] ? "▲" : "▼"}</span>
                 </button>
 
                 {expandedTrips[trip] && (

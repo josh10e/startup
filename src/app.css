@@ -170,7 +170,9 @@ footer {
 }
 
 .trip-row {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .trip-toggle-btn {
@@ -182,9 +184,35 @@ footer {
   cursor: pointer;
 }
 
+.trip-toggle-btn:hover {
+  background: #000000;
+}
+
 .trip-dives {
-  margin-top: 0.5rem;
-  padding-left: 15px;
+  list-style: none;
+  padding: 15px;
+  margin: 0;
+  background: #f8f9fa;
+}
+
+.dive-entry {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.dive-entry strong {
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.dive-entry:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------------- Forms & Images ---------------- */
