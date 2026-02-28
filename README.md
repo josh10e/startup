@@ -88,8 +88,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - The diveplanner was mostly created, however calculating NDL and pressure groups are not simple formulas, I either need to create the dive tables from scratch or find a formula that curve fits it. That will require much more research to find the best method before I can code it into my website. The dive log works with dives nestled in dive trips in a list so finding individual dives is easy. I will need to store the data in the future, currently it uses the local storage.
+- [x] **Hooks** - I used useState to create reactive variables that I can update. I used this in the diveplanner by tracking the number of dives and water type, as well as in the divelog to track the dives and which trips/dives are expanded.
 
 ## 🚀 Service deliverable
 
