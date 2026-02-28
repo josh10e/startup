@@ -12,7 +12,6 @@ export function DiveLog() {
     setDives(stored);
   }, []);
 
-  // Group dives by trip
   const trips = [...new Set(dives.map(d => d.trip))];
 
   const toggleTrip = (trip) => {
@@ -27,10 +26,6 @@ export function DiveLog() {
     <main>
       <section className="content">
         <h2 className="page-title">Dive Log</h2>
-
-        <p className="highlight">
-          This is where previous dives logged by the user will show up
-        </p>
 
         <section>
           <h3>Previous Dives</h3>

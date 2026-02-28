@@ -159,6 +159,34 @@ footer {
   padding-left: 0;
 }
 
+/* ---------------- Divelog ---------------- */
+
+.dive-entry {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: hsl(210, 20%, 98%);
+}
+
+.trip-row {
+  margin-bottom: 1rem;
+}
+
+.trip-toggle-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.trip-dives {
+  margin-top: 0.5rem;
+  padding-left: 15px;
+}
+
 /* ---------------- Forms & Images ---------------- */
 .form-group {
   margin-bottom: 1rem;
