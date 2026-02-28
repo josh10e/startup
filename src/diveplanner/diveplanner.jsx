@@ -68,6 +68,9 @@ export function DivePlanner() {
             const fractionO2 = dive.gas === "air" ? 0.21 : dive.o2 / 100;
             const ambientPressure = 1 + dive.depth / 33;
             const ppo2 = (fractionO2 * ambientPressure).toFixed(2);
+            if (idx >= 1 && dive.surfaceInterval === undefined) {
+              dive.surfaceInterval = 0; // default to 0 min
+            }
 
             return (
               <section key={idx} className="dive-template">
@@ -123,7 +126,16 @@ export function DivePlanner() {
                   <li>Pressure Group: <strong>--</strong></li>
 
                   {idx < 3 && (
-                    <li>Surface Interval: <strong>-- min</strong></li>
+                    <li>
+                      Surface Interval (min):{" "}
+                      <input
+                        type="number"
+                        min="0"
+                        value={dive.surfaceInterval}
+                        onChange={(e) => updateDive(idx, "surfaceInterval", Number(e.target.value))}
+                        style={{width:"60px"}}
+                      />
+                    </li>
                   )}
                 </ul>
               </section>

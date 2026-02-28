@@ -97,10 +97,7 @@ function handleLogout() {
               />
               <Route path="/diveplanner" element={<DivePlanner />} />
               <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />
-              
-              {/* New Dive page */}
               <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
-
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
