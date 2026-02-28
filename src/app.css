@@ -49,7 +49,7 @@ header {
   flex: 0 0 80px;
   background: aquamarine;
   display: flex;
-  flex-direction: column;   /* stack title + username */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -57,7 +57,7 @@ header {
   left: 0;
   right: 0;
   z-index: 50;
-  gap: 5px;                 /* spacing between title & username */
+  gap: 5px;
 }
 
 header .header-title {
@@ -225,8 +225,8 @@ footer {
 
 .dive-entry strong {
   font-size: 1.05rem;
-  display: block;
-  margin-bottom: 5px;
+  display: inline;
+  margin-right: 4px;
 }
 
 .dive-entry:last-child {

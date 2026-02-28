@@ -79,13 +79,14 @@ export function DiveLog() {
                             <div className="dive-details">
 
                               <div className="dive-main">
+                                <p><strong>Date:</strong> {dive.date}</p>
                                 <p><strong>Max Depth:</strong> {dive.maxDepth} ft</p>
                                 <p><strong>Time:</strong> {dive.underwaterTime} min</p>
                                 <p><strong>PSI Used:</strong> {psiUsed} psi</p>
+                                <p><strong>Gas Mix:</strong> {dive.gasMix}</p>
                               </div>
 
                               <div className="dive-secondary">
-                                <p><strong>Gas Mix:</strong> {dive.gasMix}</p>
                                 <p><strong>Air Temp:</strong> {dive.airTemp}°C</p>
                                 <p><strong>Avg Water Temp:</strong> {dive.waterTemp}°C</p>
                                 <p><strong>Visibility:</strong> {dive.visibility}</p>
