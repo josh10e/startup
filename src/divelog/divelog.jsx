@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../app.css';
+import './example_dives.jsx';
 
 export function DiveLog() {
   const [dives, setDives] = useState([]);
@@ -70,7 +71,7 @@ export function DiveLog() {
                             onClick={() => toggleDive(dive.id)}
                           >
                             <span>
-                              {dive.location} — {dive.date}
+                              {dive.location}
                             </span>
                             <span>{expandedDives[dive.id] ? "▲" : "▼"}</span>
                           </button>
@@ -83,12 +84,12 @@ export function DiveLog() {
                                 <p><strong>Max Depth:</strong> {dive.maxDepth} ft</p>
                                 <p><strong>Time:</strong> {dive.underwaterTime} min</p>
                                 <p><strong>PSI Used:</strong> {psiUsed} psi</p>
-                                <p><strong>Gas Mix:</strong> {dive.gasMix}</p>
+                                <p><strong>Gas Mix:</strong> {dive.gas}</p>
                               </div>
 
                               <div className="dive-secondary">
-                                <p><strong>Air Temp:</strong> {dive.airTemp}°C</p>
-                                <p><strong>Avg Water Temp:</strong> {dive.waterTemp}°C</p>
+                                <p><strong>Air Temp:</strong> {dive.airTemp}°F</p>
+                                <p><strong>Avg Water Temp:</strong> {dive.waterTemp}°F</p>
                                 <p><strong>Visibility:</strong> {dive.visibility}</p>
                                 <p><strong>Current:</strong> {dive.current}</p>
                                 <p><strong>Weight:</strong> {dive.weight} lbs</p>

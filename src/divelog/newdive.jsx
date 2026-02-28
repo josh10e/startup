@@ -91,17 +91,17 @@ export function NewDive() {
           </div>
 
           <div className="form-group">
-            <label>Location:</label>
+            <label>Location: </label>
             <input type="text" value={location} onChange={e => setLocation(e.target.value)} required />
           </div>
 
           <div className="form-group">
-            <label>Date:</label>
+            <label>Date: </label>
             <input type="date" value={date} onChange={e => setDate(e.target.value)} required />
           </div>
 
           <div className="form-group">
-            <label>Max Depth (ft):</label>
+            <label>Max Depth (ft): </label>
             <input type="number" value={maxDepth} onChange={e => setMaxDepth(e.target.value)} />
           </div>
 
