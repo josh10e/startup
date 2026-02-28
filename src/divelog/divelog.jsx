@@ -5,7 +5,22 @@ import '../app.css';
 export function DiveLog() {
   const [dives, setDives] = useState([]);
   const [expandedTrips, setExpandedTrips] = useState({});
+  const [expandedDives, setExpandedDives] = useState({});
   const navigate = useNavigate();
+
+  function toggleTrip(trip) {
+      setExpandedTrips(prev => ({
+        ...prev,
+        [trip]: !prev[trip]
+      }));
+    }
+
+    function toggleDive(id) {
+      setExpandedDives(prev => ({
+        ...prev,
+        [id]: !prev[id]
+      }));
+    }
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("dives") || "[]");
@@ -13,10 +28,10 @@ export function DiveLog() {
   }, []);
 
   const trips = [...new Set(dives.map(d => d.trip))];
-
-  const toggleTrip = (trip) => {
-    setExpandedTrips(prev => ({ ...prev, [trip]: !prev[trip] }));
-  };
+  const divesByTrip = trips.reduce((acc, trip) => {
+    acc[trip] = dives.filter(d => d.trip === trip);
+    return acc;
+  }, {});
 
   const handleNewDive = () => {
     navigate("/newdive");
@@ -44,24 +59,46 @@ export function DiveLog() {
 
                 {expandedTrips[trip] && (
                   <ul className="trip-dives">
-                    {dives
-                      .filter(d => d.trip === trip)
-                      .map((dive, i) => (
-                        <li key={i} className="dive-entry">
-                          <strong>{dive.location}</strong><br />
-                          Date: {dive.date}<br />
-                          Max Depth: {dive.maxDepth} ft<br />
-                          Underwater Time: {dive.time} min<br />
-                          Beginning PSI: {dive.startPsi}<br />
-                          Ending PSI: {dive.endPsi}<br />
-                          Gas Mix: {dive.gas}<br />
-                          Air Temp: {dive.airTemp}°C<br />
-                          Avg Water Temp: {dive.waterTemp}°C<br />
-                          Visibility: {dive.visibility}<br />
-                          Current: {dive.current}<br />
-                          Weight: {dive.weight} lbs
+                    {divesByTrip[trip].map(dive => {
+                      const psiUsed = dive.beginningPsi - dive.endingPsi;
+
+                      return (
+                        <li key={dive.id} className="dive-entry">
+
+                          <button
+                            className="dive-toggle-btn"
+                            onClick={() => toggleDive(dive.id)}
+                          >
+                            <span>
+                              {dive.location} — {dive.date}
+                            </span>
+                            <span>{expandedDives[dive.id] ? "▲" : "▼"}</span>
+                          </button>
+
+                          {expandedDives[dive.id] && (
+                            <div className="dive-details">
+
+                              <div className="dive-main">
+                                <p><strong>Max Depth:</strong> {dive.maxDepth} ft</p>
+                                <p><strong>Time:</strong> {dive.underwaterTime} min</p>
+                                <p><strong>PSI Used:</strong> {psiUsed} psi</p>
+                              </div>
+
+                              <div className="dive-secondary">
+                                <p><strong>Gas Mix:</strong> {dive.gasMix}</p>
+                                <p><strong>Air Temp:</strong> {dive.airTemp}°C</p>
+                                <p><strong>Avg Water Temp:</strong> {dive.waterTemp}°C</p>
+                                <p><strong>Visibility:</strong> {dive.visibility}</p>
+                                <p><strong>Current:</strong> {dive.current}</p>
+                                <p><strong>Weight:</strong> {dive.weight} lbs</p>
+                              </div>
+
+                            </div>
+                          )}
+
                         </li>
-                      ))}
+                      );
+                    })}
                   </ul>
                 )}
               </div>
