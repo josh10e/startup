@@ -12,13 +12,20 @@ import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-do
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
+  const navigate = useNavigate();
 
-function handleLogout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("username");
-  setIsLoggedIn(false);
-  setUsername("");
-}
+  async function handleLogout() {
+    await fetch('/api/auth/logout', {
+      method: 'DELETE'
+    });
+
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
+    setUsername("");
+    
+    navigate("/");
+  }
 
   return (
     <BrowserRouter>
@@ -72,29 +79,9 @@ function handleLogout() {
                     : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
                 }
               />
-              <Route
-                path="/diveplanner"
-                element={<DivePlanner />}
-              />
 
-              <Route
-                path="/divelog"
-                element={
-                  isLoggedIn
-                    ? <DiveLog />
-                    : <Navigate to="/" replace />
-                }
-              />
-
-              <Route path="*" element={<NotFound />} />
-              <Route
-                path="/"
-                element={
-                  isLoggedIn
-                    ? <Navigate to="/divelog" replace />
-                    : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
-                }
-              />
+              <Route path="/" element={isLoggedIn ? <Navigate to="/divelog" replace />
+                    : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />}/>
               <Route path="/diveplanner" element={<DivePlanner />} />
               <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />
               <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
