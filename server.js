@@ -104,3 +104,28 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+// Get dives
+apiRouter.get('/dives', verifyAuth, (req, res) => {
+  const userDives = dives.filter((d) => d.email === req.user.email);
+  res.send(userDives);
+});
+
+// Add dive
+apiRouter.post('/dives', verifyAuth, (req, res) => {
+  const newDive = {
+    id: uuid.v4(),
+    email: req.user.email,
+    ...req.body
+  };
+
+  dives.push(newDive);
+
+  res.send(newDive);
+});
+
+// Delete dive
+apiRouter.delete('/dives/:id', verifyAuth, (req, res) => {
+  dives = dives.filter(d => d.id !== req.params.id);
+  res.send(dives);
+});
