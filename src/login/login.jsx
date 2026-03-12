@@ -7,16 +7,32 @@ export function Login({ setIsLoggedIn, setUsername }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
-    if (!usernameInput) return;
-    event.preventDefault();
+  async function handleSubmit(event) {
+  event.preventDefault();
+
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: usernameInput,
+      password: password
+    })
+  });
+
+  if (response.ok) {
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("username", usernameInput);
 
     setIsLoggedIn(true);
     setUsername(usernameInput);
 
-    navigate("/divelog");}
+    navigate("/divelog");
+  } else {
+    alert("Login failed");
+  }
+}
 
   return (
     <main>
