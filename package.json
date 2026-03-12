@@ -24,8 +24,11 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.8",
+    "cookie-parser": "^1.4.7",
     "esbuild": "^0.27.3",
+    "express": "^5.2.1",
     "fdir": "^6.5.0",
     "nanoid": "^3.3.11",
     "picocolors": "^1.1.1",
@@ -37,6 +40,7 @@
     "react-router-dom": "^7.13.0",
     "rollup": "^4.57.1",
     "source-map-js": "^1.2.1",
-    "tinyglobby": "^0.2.15"
+    "tinyglobby": "^0.2.15",
+    "uuid": "^13.0.0"
   }
 }
