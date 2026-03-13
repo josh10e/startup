@@ -3,65 +3,61 @@ import { useNavigate } from 'react-router-dom';
 import '../app.css';
 
 export function Login({ setIsLoggedIn, setUsername }) {
-  const [usernameInput, setUsernameInput] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-async function handleSubmit(event) {
-  event.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
 
-  const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email: usernameInput,
-      password: password
-    }),
-    credentials: "include"
-  });
+    try {
+      const endpoint = isRegistering ? "/api/auth/create" : "/api/auth/login";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        credentials: "include"
+      });
 
-  if (response.ok) {
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("username", usernameInput);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert(err.message || "Login failed");
+        return;
+      }
 
-    setIsLoggedIn(true);
-    setUsername(usernameInput);
+      setIsLoggedIn(true);
+      setUsername(email);
 
-    navigate("/divelog");
-  } else {
-    alert("Login failed");
+      navigate("/divelog");
+    } catch (e) {
+      alert("Server error during login");
+    } finally {
+      setLoading(false);
+    }
   }
-}
 
   return (
     <main>
       <section className="content">
-        <h2>Login</h2>
-
+        <h2>{isRegistering ? "Create Account" : "Login"}</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label><br />
-          <input 
-            type="text" 
-            id="username" 
-            name="username"
-            value={usernameInput}
-            onChange={(e) => setUsernameInput(e.target.value)}
-          /><br /><br />
+          <label>Email:</label><br />
+          <input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /><br />
 
-          <label htmlFor="password">Password:</label><br />
-          <input 
-            type="password" 
-            id="password" 
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          /><br /><br />
+          <label>Password:</label><br />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} /><br /><br />
 
-          <button type="submit">Login</button>
-          
+          <button type="submit" disabled={loading}>
+            {loading ? "Processing..." : isRegistering ? "Create Account" : "Login"}
+          </button>
         </form>
+
+        <button style={{ marginTop: "10px" }} onClick={() => setIsRegistering(!isRegistering)}>
+          {isRegistering ? "Back to Login" : "Create Account"}
+        </button>
       </section>
     </main>
   );

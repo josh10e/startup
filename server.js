@@ -54,6 +54,13 @@ apiRouter.delete('/auth/logout', (req, res) => {
   res.status(204).end();
 });
 
+apiRouter.get("/auth/me", (req, res) => {
+  const token = req.cookies[authCookieName];
+  const user = users.find((u) => u.token === token);
+  if (!user) return res.status(401).send({ msg: "Unauthorized" });
+  res.send({ email: user.email });
+});
+
 // Dive routes
 const verifyAuth = (req, res, next) => {
   const token = req.cookies[authCookieName];
