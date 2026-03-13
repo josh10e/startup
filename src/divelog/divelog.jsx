@@ -10,22 +10,29 @@ export function DiveLog() {
   const navigate = useNavigate();
 
   function toggleTrip(trip) {
-      setExpandedTrips(prev => ({
-        ...prev,
-        [trip]: !prev[trip]
-      }));
-    }
+    setExpandedTrips(prev => ({
+      ...prev,
+      [trip]: !prev[trip]
+    }));
+  }
 
-    function toggleDive(id) {
-      setExpandedDives(prev => ({
-        ...prev,
-        [id]: !prev[id]
-      }));
-    }
+  function toggleDive(id) {
+    setExpandedDives(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  }
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("dives") || "[]");
-    setDives(stored);
+    (async () => {
+      const me = await fetch("/api/user/me", { credentials: "include" });
+      if (!me.ok) {
+        navigate("/");
+        return;
+      }
+      const stored = JSON.parse(localStorage.getItem("dives") || "[]");
+      setDives(stored);
+    })();
   }, []);
 
   const trips = [...new Set(dives.map(d => d.trip))];

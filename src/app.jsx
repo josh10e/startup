@@ -1,4 +1,3 @@
-// src/app.jsx
 import React, { useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,41 +8,32 @@ import { DivePlanner } from './diveplanner/diveplanner';
 import { DiveLog } from './divelog/divelog';
 import { NewDive } from './divelog/newdive';
 
-// AppWrapper ensures BrowserRouter is outside App
-export default function AppWrapper() {
-  return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
-}
-
-// Main App component
-function App() {
+export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
 
   return (
-    <AppBody
-      isLoggedIn={isLoggedIn}
-      setIsLoggedIn={setIsLoggedIn}
-      username={username}
-      setUsername={setUsername}
-    />
+    <BrowserRouter>
+      <AppBody
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        username={username}
+        setUsername={setUsername}
+      />
+    </BrowserRouter>
   );
 }
 
-// Separate component to use useNavigate
 function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
   const navigate = useNavigate();
 
   async function handleLogout() {
-    await fetch('/api/auth/logout', { method: 'DELETE' });
+    await fetch(`/api/auth/logout`, { method: 'DELETE', credentials: 'include' });
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
     setIsLoggedIn(false);
     setUsername("");
-    navigate("/"); // works now
+    navigate("/");
   }
 
   return (
@@ -72,7 +62,8 @@ function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
           <Routes>
             <Route
               path="/"
-              element={isLoggedIn ? <Navigate to="/divelog" replace /> : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />}
+              element={isLoggedIn ? <Navigate to="/divelog" replace /> :
+                <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />}
             />
             <Route path="/diveplanner" element={<DivePlanner />} />
             <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />

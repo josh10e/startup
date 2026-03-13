@@ -7,18 +7,19 @@ export function Login({ setIsLoggedIn, setUsername }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault();
 
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
+  const response = await fetch("/api/auth/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       email: usernameInput,
       password: password
-    })
+    }),
+    credentials: "include"
   });
 
   if (response.ok) {
@@ -62,6 +63,6 @@ export function Login({ setIsLoggedIn, setUsername }) {
           
         </form>
       </section>
-  </main>
+    </main>
   );
 }
