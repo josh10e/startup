@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+// src/app.jsx
+import React, { useState } from 'react';
+import { BrowserRouter, NavLink, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -7,102 +8,84 @@ import { Login } from './login/login';
 import { DivePlanner } from './diveplanner/diveplanner';
 import { DiveLog } from './divelog/divelog';
 import { NewDive } from './divelog/newdive';
-import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
 
-export default function App() {
+// AppWrapper ensures BrowserRouter is outside App
+export default function AppWrapper() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
+
+// Main App component
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
+
+  return (
+    <AppBody
+      isLoggedIn={isLoggedIn}
+      setIsLoggedIn={setIsLoggedIn}
+      username={username}
+      setUsername={setUsername}
+    />
+  );
+}
+
+// Separate component to use useNavigate
+function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
   const navigate = useNavigate();
 
   async function handleLogout() {
-    await fetch('/api/auth/logout', {
-      method: 'DELETE'
-    });
-
+    await fetch('/api/auth/logout', { method: 'DELETE' });
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
     setIsLoggedIn(false);
     setUsername("");
-    
-    navigate("/");
+    navigate("/"); // works now
   }
 
   return (
-    <BrowserRouter>
-      <div className="app-body">
-        <header>
-          <h1 className="header">Scuba Buddy</h1>
-          {isLoggedIn && (<p className="user-display">Welcome, {username}</p>)}
-        </header>
+    <div className="app-body">
+      <header>
+        <h1 className="header">Scuba Buddy</h1>
+        {isLoggedIn && (<p className="user-display">Welcome, {username}</p>)}
+      </header>
 
-        <div className="main-container">
-          <nav className="sidebar">
-            <h2>Pages</h2>
-            <ul>
-              {!isLoggedIn && (
-                <li>
-                  <NavLink className="nav-link" to="/">Login</NavLink>
-                </li>
-              )}
-
-              <li>
-                <NavLink className="nav-link" to="/diveplanner">Plan a Dive</NavLink>
+      <div className="main-container">
+        <nav className="sidebar">
+          <h2>Pages</h2>
+          <ul>
+            {!isLoggedIn && <li><NavLink to="/">Login</NavLink></li>}
+            <li><NavLink to="/diveplanner">Plan a Dive</NavLink></li>
+            {isLoggedIn && <li><NavLink to="/divelog">Logbook</NavLink></li>}
+            {isLoggedIn && (
+              <li style={{ marginTop: 15 }}>
+                <button onClick={handleLogout}>Logout</button>
               </li>
+            )}
+          </ul>
+        </nav>
 
-              {isLoggedIn && (
-                <li>
-                  <NavLink className="nav-link" to="/divelog">Logbook</NavLink>
-                </li>
-              )}
-
-              {isLoggedIn && (
-                <li style={{ marginTop: "15px" }}>
-                  <button 
-                    className="login-button"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </li>
-              )}
-
-            </ul>
-          </nav>
-
-          <main className="content">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  isLoggedIn
-                    ? <Navigate to="/divelog" replace />
-                    : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
-                }
-              />
-
-              <Route path="/" element={isLoggedIn ? <Navigate to="/divelog" replace />
-                    : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />}/>
-              <Route path="/diveplanner" element={<DivePlanner />} />
-              <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />
-              <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-
-        <footer>
-          <li>
-                <a 
-                  className="nav-link" 
-                  href="https://github.com/josh10e/startup" 
-                  target="_blank"
-                >
-                  Startup Repository
-                </a>
-              </li>
-        </footer>
+        <main className="content">
+          <Routes>
+            <Route
+              path="/"
+              element={isLoggedIn ? <Navigate to="/divelog" replace /> : <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />}
+            />
+            <Route path="/diveplanner" element={<DivePlanner />} />
+            <Route path="/divelog" element={isLoggedIn ? <DiveLog /> : <Navigate to="/" replace />} />
+            <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
       </div>
-    </BrowserRouter>
+
+      <footer>
+        <a href="https://github.com/josh10e/startup" target="_blank">Startup Repository</a>
+      </footer>
+    </div>
   );
 }
 

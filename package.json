@@ -1,47 +1,37 @@
 {
   "name": "startup",
   "version": "1.0.0",
-  "description": "[My Notes](notes.md)",
+  "description": "My Notes",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/josh10e/startup.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/josh10e/startup/issues"
-  },
-  "homepage": "https://github.com/josh10e/startup#readme",
-  "devDependencies": {
-    "vite": "^7.3.1"
+    "preview": "vite preview",
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
     "cookie-parser": "^1.4.7",
-    "esbuild": "^0.27.3",
     "express": "^5.2.1",
-    "fdir": "^6.5.0",
-    "nanoid": "^3.3.11",
-    "picocolors": "^1.1.1",
-    "picomatch": "^4.0.3",
-    "postcss": "^8.5.6",
     "react": "^19.2.4",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
-    "rollup": "^4.57.1",
-    "source-map-js": "^1.2.1",
-    "tinyglobby": "^0.2.15",
     "uuid": "^13.0.0"
-  }
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josh10e/startup.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josh10e/startup/issues"
+  },
+  "homepage": "https://github.com/josh10e/startup#readme"
 }
