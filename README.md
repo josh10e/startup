@@ -97,7 +97,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] **Node.js/Express HTTP service** - I created a backend service using Express that runs on port 4000. It provides the necessary API endpoints for authentication and divelog management.
 - [x] **Static middleware for frontend** - I used express.json() and cookie-parser for middleware.
-- [x] **Calls to third party endpoints** - I did not complete this part of the deliverable.
+- [x] **Calls to third party endpoints** - I added an endpoint for OpenWeather to get the weather wherever the diver wants to plan a dive. I hid the API key in a .env folder and told git to ignore it since apparently its against github policy to upload API keys, which makes sense I guess.
 - [x] **Backend service endpoints** - I used several endpoints, including POST, DELETE, and GET, with the authentication using bcrypt, UUID tokens, and HTTP cookies. I also used protected endpoints to ensure only logged in users can see divelogs.
 - [x] **Frontend calls service endpoints** - My frontend communicates with the backend using the "fetch" command. This way people cannot navigate to pages where they shouldn't be unless they are logged in.
 - [x] **Supports registration, login, logout, and restricted endpoint** - I created an authenticator section that allows people to create accounts, login, logout, and only have access to portions of the site unless they are logged in.
