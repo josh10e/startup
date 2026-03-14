@@ -7,6 +7,9 @@ const app = express();
 const authCookieName = 'token';
 const port = 4000;
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
 let users = [];
 let dives = [];
 
