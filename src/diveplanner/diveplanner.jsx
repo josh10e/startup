@@ -8,6 +8,25 @@ export function DivePlanner() {
     { gas: "air", o2: 32, depth: 0 }
   ]);
 
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+
+  async function getWeather() {
+    const res = await fetch(`/api/weather/${city}`, {
+      credentials: "include"
+    });
+
+    console.log("status:", res.status);
+
+    if (res.ok) {
+      const data = await res.json();
+      console.log(data);
+      setWeather(data);
+    } else {
+      console.error("Weather request failed");
+    }
+  }
+
   const updateDive = (index, field, value) => {
     const newDives = [...dives];
     if (field === "o2") {
@@ -30,6 +49,30 @@ export function DivePlanner() {
     <main>
       <section className="content">
         <h2 className="page-title">Dive Planner</h2>
+
+        <div>
+          <h3>Check Dive Conditions</h3>
+
+          <input
+            type="text"
+            placeholder="Enter dive location"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+
+          <button onClick={getWeather}>
+            Get Weather
+          </button>
+        </div>
+
+        {weather && (
+          <div>
+            <p>Location: {weather.city}</p>
+            <p>Temperature: {weather.temperature} °F</p>
+            <p>Wind: {weather.wind} mph</p>
+            <p>Conditions: {weather.description}</p>
+          </div>
+        )}
 
         <div className="selector-group">
         <h4>Number of dives</h4>
@@ -69,7 +112,7 @@ export function DivePlanner() {
             const ambientPressure = 1 + dive.depth / 33;
             const ppo2 = (fractionO2 * ambientPressure).toFixed(2);
             if (idx >= 1 && dive.surfaceInterval === undefined) {
-              dive.surfaceInterval = 0; // default to 0 min
+              dive.surfaceInterval = 0;
             }
 
             return (

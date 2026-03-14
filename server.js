@@ -2,7 +2,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
-
+const axios = require("axios");
+require("dotenv").config();
+console.log("Weather key:", process.env.OPENWEATHER_KEY);
 const app = express();
 const authCookieName = 'token';
 const port = 4000;
@@ -87,6 +89,27 @@ apiRouter.post('/dives', verifyAuth, (req, res) => {
 apiRouter.delete('/dives/:id', verifyAuth, (req, res) => {
   dives = dives.filter(d => d.id !== req.params.id);
   res.send(dives);
+});
+
+apiRouter.get("/weather/:city", async (req, res) => {
+  try {
+    const city = req.params.city;
+    const apiKey = process.env.OPENWEATHER_KEY;
+
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
+    );
+
+    res.send({
+      city: response.data.name,
+      temperature: response.data.main.temp,
+      wind: response.data.wind.speed,
+      description: response.data.weather[0].description
+    });
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    res.status(500).send({ msg: "Weather lookup failed" });
+  }
 });
 
 app.use((err, req, res, next) => {
