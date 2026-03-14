@@ -14,7 +14,6 @@ export function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if the user has a valid session on page load
     (async () => {
       try {
         const res = await fetch("/api/auth/me", { credentials: "include" });
@@ -36,7 +35,6 @@ export function App() {
   }, []);
 
   if (loading) {
-    // Wait until we know login state
     return <p>Loading...</p>;
   }
 
@@ -59,7 +57,7 @@ function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
     await fetch("/api/auth/logout", { method: "DELETE", credentials: "include" });
     setIsLoggedIn(false);
     setUsername("");
-    navigate("/"); // send to login page
+    navigate("/");
   }
 
   return (

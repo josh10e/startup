@@ -3,20 +3,19 @@ import { useNavigate } from "react-router-dom";
 import "../app.css";
 import "./example_dives.jsx";
 
-export function DiveLog({ isLoggedIn }) {  // <-- receive login state as prop
+export function DiveLog({ isLoggedIn }) {
   const [dives, setDives] = useState([]);
   const [expandedTrips, setExpandedTrips] = useState({});
   const [expandedDives, setExpandedDives] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) return; // do nothing if not logged in
+  useEffect(async () => {
+    if (!isLoggedIn) return;
 
-    const stored = JSON.parse(localStorage.getItem("dives") || "[]");
-    setDives(stored);
+    const res = await fetch("/api/dives", { credentials: "include" });
+    const data = await res.json();
+    setDives(data);
 
-    // Optionally, you can fetch real dives from backend here
-    // fetch("/api/dives", { credentials: "include" })...
   }, [isLoggedIn]);
 
   function toggleTrip(trip) {
