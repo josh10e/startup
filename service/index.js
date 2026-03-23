@@ -1,3 +1,4 @@
+const DB = require('./database.js');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -117,4 +118,8 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err.message });
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
+});
+
+app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));

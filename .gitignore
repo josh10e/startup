@@ -2,3 +2,5 @@
 .DS_Store
 node_modules
 .env
+service/dbConfig.json
+service/node_modules

@@ -24,10 +24,14 @@ export function NewDive() {
   const [weight, setWeight] = useState(10);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("dives") || "[]");
-    setDives(stored);
-    const uniqueTrips = [...new Set(stored.map(d => d.trip))];
-    setTrips(uniqueTrips);
+    async function fetchdives() {
+      const res = await fetch("/api/dives")
+      const stored = await res.json();
+      setDives(stored);
+      const uniqueTrips = [...new Set(stored.map(d => d.trip))];
+      setTrips(uniqueTrips);
+    }
+    fetchdives();
   }, []);
 
   const handleO2Change = (value) => {
@@ -44,8 +48,7 @@ export function NewDive() {
     return `${mm}/${dd}/${yy}`;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  async function submitDive(){
     const finalTrip = trip === "New" ? newTripTitle : trip;
     const newDive = {
       trip: finalTrip,
@@ -62,8 +65,17 @@ export function NewDive() {
       current,
       weight
     };
-    localStorage.setItem("dives", JSON.stringify([...dives, newDive]));
+    await fetch('/api/dives', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newDive)
+    });
     navigate("/divelog");
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitDive();
   };
 
   return (

@@ -9,13 +9,16 @@ export function DiveLog({ isLoggedIn }) {
   const [expandedDives, setExpandedDives] = useState({});
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    if (!isLoggedIn) return;
+  useEffect(() => {
+    async function fetchData() {
+      if (!isLoggedIn) return;
 
-    const res = await fetch("/api/dives", { credentials: "include" });
-    const data = await res.json();
-    setDives(data);
+      const res = await fetch("/api/dives");
+      const data = await res.json();
+      setDives(data);
+    }
 
+    fetchData();
   }, [isLoggedIn]);
 
   function toggleTrip(trip) {
