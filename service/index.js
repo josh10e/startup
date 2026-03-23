@@ -29,13 +29,25 @@ app.use('/api', apiRouter);
 // Auth routes
 apiRouter.post('/auth/create', async (req, res) => {
   const { email, password } = req.body;
-  if (users.find(u => u.email === email)) return res.status(409).send({ msg: 'Existing user' });
 
-  const hashed = await bcrypt.hash(password, 10);
+  const existingUser = await DB.getUser(email);
+  if (existingUser) {
+    return res.status(409).send({ msg: 'Existing user' });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
   const token = uuidv4();
-  users.push({ email, password: hashed, token });
+
+  const user = {
+    email: email,
+    password: hashedPassword,
+    token: token
+  };
+
+  await DB.addUser(user);
+
   res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'strict' });
-  res.send({ email });
+  res.send({ email: email });
 });
 
 apiRouter.post('/auth/login', async (req, res) => {
