@@ -1,11 +1,11 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
-
 const db = client.db('diveplanner');
 const userCollection = db.collection('user');
+const diveCollection = db.collection('dives');
 
 (async function testConnection() {
   try {
@@ -36,9 +36,24 @@ async function updateUser(user) {
   );
 }
 
+async function addDive(dive) {
+  return diveCollection.insertOne(dive);
+}
+
+async function getUserDives(email) {
+  return diveCollection.find({ email: email }).toArray();
+}
+
+async function deleteDive(id) {
+  return diveCollection.deleteOne({ id: id });
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   addUser,
-  updateUser
+  updateUser,
+  addDive,
+  getUserDives,
+  deleteDive
 };

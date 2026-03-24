@@ -13,9 +13,6 @@ const port = 4000;
 const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
-let users = [];
-let dives = [];
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -52,56 +49,61 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 apiRouter.post('/auth/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find(u => u.email === email);
+  const user = await DB.getUser(email);
   if (!user) return res.status(401).send({ msg: 'Unauthorized' });
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) return res.status(401).send({ msg: 'Unauthorized' });
 
   user.token = uuidv4();
+  await DB.updateUser(user);
   res.cookie(authCookieName, user.token, { httpOnly: true, sameSite: 'strict' });
   res.send({ email });
 });
 
-apiRouter.delete('/auth/logout', (req, res) => {
+apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies[authCookieName];
-  const user = users.find(u => u.token === token);
+  const user = await DB.getUserByToken(token);
   if (user) delete user.token;
 
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
-apiRouter.get("/auth/me", (req, res) => {
+apiRouter.get("/auth/me", async (req, res) => {
   const token = req.cookies[authCookieName];
-  const user = users.find((u) => u.token === token);
+  const user = await DB.getUserByToken(token);
   if (!user) return res.status(401).send({ msg: "Unauthorized" });
   res.send({ email: user.email });
 });
 
 // Dive routes
-const verifyAuth = (req, res, next) => {
+const verifyAuth = async (req, res, next) => {
   const token = req.cookies[authCookieName];
-  const user = users.find(u => u.token === token);
+  const user = await DB.getUserByToken(token);
   if (!user) return res.status(401).send({ msg: 'Unauthorized' });
   req.user = user;
   next();
 };
 
-apiRouter.get('/dives', verifyAuth, (req, res) => {
-  const userDives = dives.filter(d => d.email === req.user.email);
-  res.send(userDives);
+apiRouter.get('/dives', verifyAuth, async (req, res) => {
+  const dives = await DB.getUserDives(req.user.email);
+  res.send(dives);
 });
 
-apiRouter.post('/dives', verifyAuth, (req, res) => {
-  const newDive = { id: uuidv4(), email: req.user.email, ...req.body };
-  dives.push(newDive);
+apiRouter.post('/dives', verifyAuth, async (req, res) => {
+  const newDive = {
+    id: uuidv4(),
+    email: req.user.email,
+    ...req.body
+  };
+  await DB.addDive(newDive);
   res.send(newDive);
 });
 
-apiRouter.delete('/dives/:id', verifyAuth, (req, res) => {
-  dives = dives.filter(d => d.id !== req.params.id);
-  res.send(dives);
+apiRouter.delete('/dives/:id', verifyAuth, async (req, res) => {
+  await DB.deleteDive(req.params.id);
+  res.send({ msg: "Dive deleted" });
 });
 
 apiRouter.get("/weather/:city", async (req, res) => {
