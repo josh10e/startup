@@ -136,4 +136,34 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
+const http = require('http');
+const { WebSocketServer } = require('ws');
+
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+
+let connections = [];
+
+wss.on('connection', (ws) => {
+  console.log('WebSocket connected');
+  connections.push(ws);
+
+  ws.on('message', (message) => {
+    console.log('Received:', message.toString());
+
+    connections.forEach(conn => {
+      if (conn.readyState === ws.OPEN) {
+        conn.send(message.toString());
+      }
+    });
+  });
+
+  ws.on('close', () => {
+    connections = connections.filter(conn => conn !== ws);
+    console.log('WebSocket disconnected');
+  });
+});
+
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Listening on port ${port}`);
+});
