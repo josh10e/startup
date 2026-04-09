@@ -53,6 +53,34 @@ export function App() {
 function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
   const navigate = useNavigate();
 
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const ws = new WebSocket(`${protocol}://${window.location.host}`);
+
+    ws.onopen = () => console.log("WebSocket connected");
+
+    ws.onmessage = (event) => {
+      setMessages(prev => [...prev, event.data]);
+    };
+
+    ws.onclose = () => console.log("WebSocket disconnected");
+
+    setSocket(ws);
+
+    return () => ws.close();
+  }, []);
+
+  function sendMessage() {
+  if (socket && input.trim() !== "") {
+    socket.send(`${username}: ${input}`);
+    setInput("");
+    }
+  }
+
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "DELETE", credentials: "include" });
     setIsLoggedIn(false);
@@ -95,6 +123,24 @@ function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
             <Route path="/newdive" element={isLoggedIn ? <NewDive /> : <Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {isLoggedIn && (
+            <div style={{ marginTop: "20px" }}>
+              <h3>Chat</h3>
+
+              <div style={{ border: "1px solid black", height: "150px", overflowY: "scroll", padding: "5px" }}>
+                {messages.map((msg, i) => (
+                  <div key={i}>{msg}</div>
+                ))}
+              </div>
+
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type message..."
+              />
+              <button onClick={sendMessage}>Send</button>
+            </div>
+          )}
         </main>
       </div>
 
