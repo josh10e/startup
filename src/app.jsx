@@ -58,8 +58,20 @@ function AppBody({ isLoggedIn, setIsLoggedIn, username, setUsername }) {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    let port = window.location.port;
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${protocol}://${window.location.host}`);
+    const ws = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    ws.onclose = (event) => {
+      console.error("WebSocket closed:", {
+        code: event.code,
+        reason: event.reason,
+        wasClean: event.wasClean
+      });
+    };
 
     ws.onopen = () => console.log("WebSocket connected");
 

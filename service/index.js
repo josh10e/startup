@@ -139,8 +139,11 @@ app.use((_req, res) => {
 const http = require('http');
 const { WebSocketServer } = require('ws');
 
-const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+const httpService = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+
+const wss = new WebSocketServer({ server: httpService });
 
 let connections = [];
 
@@ -151,7 +154,7 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     console.log('Received:', message.toString());
 
-    connections.forEach(conn => {
+    connections.forEach((conn) => {
       if (conn.readyState === ws.OPEN) {
         conn.send(message.toString());
       }
@@ -159,7 +162,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    connections = connections.filter(conn => conn !== ws);
+    connections = connections.filter((c) => c !== ws);
     console.log('WebSocket disconnected');
   });
 });
