@@ -113,8 +113,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - Backend listens for websocket connections, though it could be crashing due to a bad MongoDB connection, which also causes WebSocket to crash.
+- [x] **Frontend makes WebSocket connection** - WebSocket connection attempts are made, but don't make it to the backend for some reason.
 - [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
 - [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Application is fully functional** - There are no more mocked out sections of the website, but the websocket chat feature does not work.
